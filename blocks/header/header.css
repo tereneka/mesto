@@ -1,0 +1,11 @@
+.header {
+  width: 100%;
+  min-height: 74px;
+  border-bottom: 1px solid var(--medium-color);
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding-left: 27px;
+  }
+}

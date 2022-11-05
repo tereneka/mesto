@@ -1,0 +1,21 @@
+.root {
+  font-family: "Inter", sans-serif;
+  max-width: 1280px;
+  width: 68.75%;
+  background-color: var(--dark-color);
+  box-sizing: border-box;
+  margin: auto;
+  padding-top: 45px;
+  padding-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 600px) {
+  .root {
+    width: 100%;
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
+}
