@@ -1,0 +1,11 @@
+.profile__name-flex-box {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+@media screen and (max-width: 600px) {
+  .profile__name-flex-box {
+    gap: 10px;
+  }
+}
