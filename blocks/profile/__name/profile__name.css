@@ -6,6 +6,10 @@
   margin: 0 0 16px;
   color: var(--light-color);
   display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 350px;
 }
 
 @media screen and (max-width: 900px) {
@@ -15,8 +19,21 @@
   }
 }
 
+@media screen and (max-width: 800px) {
+  .profile__name {
+    max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile__name {
+    max-width: 220px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .profile__name {
+    max-width: calc(100vw - 66px);
     text-align: center;
     margin-bottom: 14px;
   }

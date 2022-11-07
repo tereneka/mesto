@@ -9,9 +9,12 @@
   <title>Mesto</title>
 </head>
 
+<!-- Добавьте атрибут required для полей формы -было в первом варианте
+Для реализации адаптивной сетки в секции с карточками места можно использовать ключевые слова auto-fit и minmax  -было в первом варианте -->
+
 <body class="root">
   <header class="header">
-    <a href="#">
+    <a class="header__link" href="#">
       <img class="logo" src="./images/logo-white.svg" alt="Место">
     </a>
   </header>
@@ -22,77 +25,55 @@
         <div>
           <div class="profile__name-flex-box">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="edit-button" type="button"></button>
+            <button class="profile__edit-btn" type="button" aria-label="редактирование профиля"></button>
           </div>
           <h2 class="profile__about">Исследователь океана</h2>
         </div>
       </div>
-      <button class="add-button" type="button"></button>
+      <button class="profile__add-btn" type="button" aria-label="добавление поста"></button>
     </section>
-
-    <div class="popup">
-      <form class="popup__form" method="post">
-        <button class="popup__close-btn" type="button"></button>
-        <h3 class="popup__title">Редактировать профиль</h3>
-        <input class="popup__input" type="text" name="userName" id="userName" value="Жак-Ив Кусто" autofocus required>
-        <input class="popup__input" type="text" name="userAbout" id="userAbout" value="Исследователь океана" required>
-        <button class="popup__sub-btn" type="submit">Сохранить</button>
-      </form>
-    </div>
 
     <section class="elements">
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/vasuganskie.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/vasuganskie.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Васюганские болота</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/chuiskiy.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/chuiskiy.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Чуйский тракт</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/kareliya.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/kareliya.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Карелия</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/elbrus.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/elbrus.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Гора Эльбрус</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/dombai.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/dombai.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Домбай</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <div class="elements__photo-group">
-          <img class="elements__photo" src="./images/karachaevsk.png" alt="фотография">
-        </div>
+        <img class="elements__photo" src="./images/karachaevsk.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Карачаево-черкесия</h3>
-          <div class="elements__like"></div>
+          <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
       </div>
     </section>
@@ -100,6 +81,20 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
+
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button" aria-label="закрытие редактирования профиля"></button>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form class="popup__form" method="post" name="profileEdit">
+        <input class="popup__input popup__input_data_name" type="text" name="userName" id="userName" autofocus required>
+        <input class="popup__input popup__input_data_about" type="text" name="userAbout" id="userAbout" required>
+        <!-- прочитала информацию о атрибуте name для кнопки, но так и не поняла что он даёт -->
+        <button class="popup__submit-btn" type="submit" name="editeFormBtnSubmit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <script src="./scripts/index.js"></script>
 </body>
 

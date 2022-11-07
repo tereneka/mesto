@@ -1,5 +1,5 @@
 :root {
   --dark-color: rgb(0, 0, 0);
   --light-color: rgb(255, 255, 255);
-  --medium-color: rgba(84, 84, 84, 0.7);
+  --medium-color: rgba(84, 84, 84);
 }

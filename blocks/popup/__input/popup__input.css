@@ -5,11 +5,18 @@
   line-height: 17px;
   color: var(--dark-color);
   padding-bottom: 13px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   border: none;
-  border-bottom: 1px solid var(--dark-color);
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 .popup__input:last-of-type {
   margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__input {
+    padding-bottom: 10px;
+    margin-bottom: 28px;
+  }
 }

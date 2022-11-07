@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   min-height: 74px;
-  border-bottom: 1px solid var(--medium-color);
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
   box-sizing: border-box;
 }
 
