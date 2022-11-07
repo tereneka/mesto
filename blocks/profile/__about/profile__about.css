@@ -1,4 +1,4 @@
-.profile__descr {
+.profile__about {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -8,14 +8,14 @@
 }
 
 @media screen and (max-width: 900px) {
-  .profile__descr {
+  .profile__about {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .profile__descr {
+  .profile__about {
     text-align: center;
   }
 }
