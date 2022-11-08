@@ -11,6 +11,12 @@
   text-align: center;
   color: var(--light-color);
   border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.popup__submit-btn:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 600px) {
