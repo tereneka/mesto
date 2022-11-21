@@ -80,10 +80,21 @@ function addCard(card, place) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardPhoto = cardElement.querySelector(".elements__photo");
   const cardTitle = cardElement.querySelector(".elements__title");
+  const likeCardBtn = cardElement.querySelector(".elements__like");
+  const trashCardBtn = cardElement.querySelector(".elements__trash");
 
   cardTitle.textContent = card.name;
   cardPhoto.src = card.link;
   cardPhoto.alt = card.name;
+
+  likeCardBtn.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("elements__like_active");
+  });
+
+  trashCardBtn.addEventListener("click", () => {
+    trashCardBtn.closest(".elements__item").remove();
+  });
+
   if (place === "end") {
     cardsContainer.append(cardElement);
   } else {
