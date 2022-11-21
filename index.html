@@ -31,7 +31,16 @@
     </section>
 
     <section class="elements">
-      <div class="elements__item">
+      <template id="card-template">
+        <div class="elements__item">
+          <img class="elements__photo" src="" alt="">
+          <div class="elements__title-flex-box">
+            <h3 class="elements__title">Васюганские болота</h3>
+            <button class="elements__like" type="button" aria-label="нравится"></button>
+          </div>
+        </div>
+      </template>
+      <!-- <div class="elements__item">
         <img class="elements__photo" src="./images/vasuganskie.png" alt="фотография">
         <div class="elements__title-flex-box">
           <h3 class="elements__title">Васюганские болота</h3>
@@ -72,20 +81,34 @@
           <h3 class="elements__title">Карачаево-черкесия</h3>
           <button class="elements__like" type="button" aria-label="нравится"></button>
         </div>
-      </div>
+      </div> -->
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_name_edit-profile">
     <div class="popup__container">
       <button class="popup__close-btn" type="button" aria-label="закрытие редактирования профиля"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form class="popup__form" method="post" name="profileEdit">
-        <input class="popup__input popup__input_data_name" type="text" name="userName" autofocus required>
-        <input class="popup__input popup__input_data_about" type="text" name="userAbout" required>
+      <form class="popup__form" method="post" name="editProfile">
+        <input class="popup__input popup__input_data_user-name" type="text" name="userName" autofocus required>
+        <input class="popup__input popup__input_data_user-about" type="text" name="userAbout" required>
+        <button class="popup__submit-btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_name_add-card">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button" aria-label="закрытие добавления нового места"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__form" method="post" name="addCard">
+        <input class="popup__input popup__input_data_card-name" placeholder="Название" type="text" name="cardName"
+          autofocus required>
+        <input class="popup__input popup__input_data_card-link" placeholder="Ссылка на картинку" type="text"
+          name="cardLink" required>
         <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
     </div>

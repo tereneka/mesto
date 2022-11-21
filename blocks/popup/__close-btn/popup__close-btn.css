@@ -2,9 +2,13 @@
   width: 32px;
   height: 32px;
   background-image: url(../../../images/close-icon.svg);
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: transparent;
   border: none;
+  padding: 0;
+  line-height: 0;
   position: absolute;
   top: -40px;
   right: -40px;
