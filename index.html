@@ -49,7 +49,7 @@
   </footer>
 
   <div class="popup popup_name_edit-profile">
-    <div class="popup__container">
+    <div class="popup__container popup__container_for_form">
       <button class="popup__close-btn" type="button" aria-label="закрытие редактирования профиля"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" method="post" name="editProfile">
@@ -61,7 +61,7 @@
   </div>
 
   <div class="popup popup_name_add-card">
-    <div class="popup__container">
+    <div class="popup__container popup__container_for_form">
       <button class="popup__close-btn" type="button" aria-label="закрытие добавления нового места"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" method="post" name="addCard">
@@ -71,6 +71,16 @@
           name="cardLink" required>
         <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
+    </div>
+  </div>
+
+  <div class="popup popup_name_fullscreen-photo">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button" aria-label="закрытие добавления нового места"></button>
+      <figure>
+        <img class="popup__photo" src="" alt="">
+        <figcaption class="popup__photo-caption"></figcaption>
+      </figure>
     </div>
   </div>
 

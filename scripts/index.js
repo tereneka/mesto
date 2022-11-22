@@ -1,3 +1,8 @@
+// универсальные функции
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+}
+
 // редактирование профиля
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfilePopup = document.querySelector(".popup_name_edit-profile");
@@ -12,17 +17,10 @@ const userAboutInput = editProfileForm.querySelector(
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
-function openPopup(popup) {
-  if (popup === editProfilePopup) {
-    userNameInput.value = profileName.textContent;
-    userAboutInput.value = profileAbout.textContent;
-  }
-
-  popup.classList.add("popup_opened");
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
+function openEditProfilePopup() {
+  userNameInput.value = profileName.textContent;
+  userAboutInput.value = profileAbout.textContent;
+  editProfilePopup.classList.add("popup_opened");
 }
 
 function editProfileFormSubmitHandler(evt, popup) {
@@ -32,7 +30,7 @@ function editProfileFormSubmitHandler(evt, popup) {
   closePopup(popup);
 }
 
-editProfileBtn.addEventListener("click", () => openPopup(editProfilePopup));
+editProfileBtn.addEventListener("click", openEditProfilePopup);
 editProfileCloseBtn.addEventListener("click", () =>
   closePopup(editProfilePopup)
 );
@@ -74,6 +72,15 @@ const addCardCloseBtn = addCardPopup.querySelector(".popup__close-btn");
 const addCardForm = addCardPopup.querySelector(".popup__form");
 const cardNameInput = addCardForm.querySelector(".popup__input_data_card-name");
 const cardLinkInput = addCardForm.querySelector(".popup__input_data_card-link");
+const fullscreenPhotoPopup = document.querySelector(
+  ".popup_name_fullscreen-photo"
+);
+const fullscreenPhoto = fullscreenPhotoPopup.querySelector(".popup__photo");
+const fullscreenPhotoCaption = fullscreenPhotoPopup.querySelector(
+  ".popup__photo-caption"
+);
+const fullscreenPhotoCloseBtn =
+  fullscreenPhotoPopup.querySelector(".popup__close-btn");
 
 function addCard(card, place) {
   const cardTemplate = cardsContainer.querySelector("#card-template").content;
@@ -82,18 +89,28 @@ function addCard(card, place) {
   const cardTitle = cardElement.querySelector(".elements__title");
   const likeCardBtn = cardElement.querySelector(".elements__like");
   const trashCardBtn = cardElement.querySelector(".elements__trash");
-
   cardTitle.textContent = card.name;
   cardPhoto.src = card.link;
   cardPhoto.alt = card.name;
 
+  // лайк для карточек
   likeCardBtn.addEventListener("click", (evt) => {
     evt.target.classList.toggle("elements__like_active");
   });
 
+  // удаление карточек
   trashCardBtn.addEventListener("click", () => {
     trashCardBtn.closest(".elements__item").remove();
   });
+
+  // открытие fullscreen
+  function openFullscreenPhotoPopup(evt) {
+    fullscreenPhoto.src = evt.target.src;
+    fullscreenPhoto.alt = card.name;
+    fullscreenPhotoCaption.textContent = card.name;
+    fullscreenPhotoPopup.classList.add("popup_opened");
+  }
+  cardPhoto.addEventListener("click", openFullscreenPhotoPopup);
 
   if (place === "end") {
     cardsContainer.append(cardElement);
@@ -102,7 +119,11 @@ function addCard(card, place) {
   }
 }
 
-function addCardeditProfileFormSubmitHandler(evt, popup) {
+function openAddCardPopup() {
+  addCardPopup.classList.add("popup_opened");
+}
+
+function addCardFormSubmitHandler(evt, popup) {
   evt.preventDefault();
   addCard(
     {
@@ -117,9 +138,14 @@ function addCardeditProfileFormSubmitHandler(evt, popup) {
 // первоначальный рендеринг карточек
 initialCards.forEach((card) => addCard(card, "end"));
 
-// добавление новых уарточек
-addCardBtn.addEventListener("click", () => openPopup(addCardPopup));
+// добавление новых карточек
+addCardBtn.addEventListener("click", openAddCardPopup);
 addCardCloseBtn.addEventListener("click", () => closePopup(addCardPopup));
 addCardForm.addEventListener("submit", (evt) =>
-  addCardeditProfileFormSubmitHandler(evt, addCardPopup)
+  addCardFormSubmitHandler(evt, addCardPopup)
+);
+
+// закрытие fullscreen
+fullscreenPhotoCloseBtn.addEventListener("click", () =>
+  closePopup(fullscreenPhotoPopup)
 );
