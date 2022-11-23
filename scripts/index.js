@@ -1,151 +1,124 @@
-// универсальные функции
+import { initialCards } from "./data.js";
+
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
+
+const cardsContainer = document.querySelector(".elements");
+const cardTemplate = cardsContainer.querySelector("#card-template").content;
+
+const popupProfileEdit = document.querySelector(".popup_name_edit-profile");
+const popupCardAdd = document.querySelector(".popup_name_add-card");
+const popupFullscreenPhoto = document.querySelector(
+  ".popup_name_fullscreen-photo"
+);
+
+const btnOpenProfileEdit = document.querySelector(".profile__edit-btn");
+const btnOpenCardAdd = document.querySelector(".profile__add-btn");
+
+const btnCloseProfileEdit = popupProfileEdit.querySelector(".popup__close-btn");
+const btnCloseCardAdd = popupCardAdd.querySelector(".popup__close-btn");
+const btnCloseFullscreenPhoto =
+  popupFullscreenPhoto.querySelector(".popup__close-btn");
+
+const formProfileEdit = popupProfileEdit.querySelector(".popup__form");
+const inputUserName = formProfileEdit.querySelector(
+  ".popup__input_data_user-name"
+);
+const inputUserAbout = formProfileEdit.querySelector(
+  ".popup__input_data_user-about"
+);
+
+const formCardAdd = popupCardAdd.querySelector(".popup__form");
+const inputCardName = formCardAdd.querySelector(".popup__input_data_card-name");
+const inputCardLink = formCardAdd.querySelector(".popup__input_data_card-link");
+
+const fullscreenPhoto = popupFullscreenPhoto.querySelector(".popup__photo");
+const fullscreenPhotoCaption = popupFullscreenPhoto.querySelector(
+  ".popup__photo-caption"
+);
+
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+}
+
+function openProfileEdit() {
+  inputUserName.value = profileName.textContent;
+  inputUserAbout.value = profileAbout.textContent;
+  openPopup(popupProfileEdit);
+}
+
+function openFullscreenPhoto(card) {
+  fullscreenPhoto.src = card.link;
+  fullscreenPhoto.alt = card.name;
+  fullscreenPhotoCaption.textContent = card.name;
+  openPopup(popupFullscreenPhoto);
+}
+
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-// редактирование профиля
-const editProfileBtn = document.querySelector(".profile__edit-btn");
-const editProfilePopup = document.querySelector(".popup_name_edit-profile");
-const editProfileCloseBtn = editProfilePopup.querySelector(".popup__close-btn");
-const editProfileForm = editProfilePopup.querySelector(".popup__form");
-const userNameInput = editProfileForm.querySelector(
-  ".popup__input_data_user-name"
-);
-const userAboutInput = editProfileForm.querySelector(
-  ".popup__input_data_user-about"
-);
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__about");
-
-function openEditProfilePopup() {
-  userNameInput.value = profileName.textContent;
-  userAboutInput.value = profileAbout.textContent;
-  editProfilePopup.classList.add("popup_opened");
-}
-
-function editProfileFormSubmitHandler(evt, popup) {
+function submitFormProfileEdit(evt) {
   evt.preventDefault();
-  profileName.textContent = userNameInput.value;
-  profileAbout.textContent = userAboutInput.value;
-  closePopup(popup);
+  profileName.textContent = inputUserName.value;
+  profileAbout.textContent = inputUserAbout.value;
+  closePopup(popupProfileEdit);
 }
 
-editProfileBtn.addEventListener("click", openEditProfilePopup);
-editProfileCloseBtn.addEventListener("click", () =>
-  closePopup(editProfilePopup)
-);
-editProfileForm.addEventListener("submit", (evt) =>
-  editProfileFormSubmitHandler(evt, editProfilePopup)
-);
+function submitFormCardAdd(evt) {
+  evt.preventDefault();
+  renderCard({
+    name: inputCardName.value,
+    link: inputCardLink.value,
+  });
+  closePopup(popupCardAdd);
+}
 
-// карточи
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-const cardsContainer = document.querySelector(".elements");
-const addCardBtn = document.querySelector(".profile__add-btn");
-const addCardPopup = document.querySelector(".popup_name_add-card");
-const addCardCloseBtn = addCardPopup.querySelector(".popup__close-btn");
-const addCardForm = addCardPopup.querySelector(".popup__form");
-const cardNameInput = addCardForm.querySelector(".popup__input_data_card-name");
-const cardLinkInput = addCardForm.querySelector(".popup__input_data_card-link");
-const fullscreenPhotoPopup = document.querySelector(
-  ".popup_name_fullscreen-photo"
-);
-const fullscreenPhoto = fullscreenPhotoPopup.querySelector(".popup__photo");
-const fullscreenPhotoCaption = fullscreenPhotoPopup.querySelector(
-  ".popup__photo-caption"
-);
-const fullscreenPhotoCloseBtn =
-  fullscreenPhotoPopup.querySelector(".popup__close-btn");
+function likeCard(evt) {
+  evt.target.classList.toggle("elements__like_active");
+}
 
-function addCard(card, place) {
-  const cardTemplate = cardsContainer.querySelector("#card-template").content;
+function deleteCard(btn) {
+  btn.closest(".elements__item").remove();
+}
+
+function createCard(card) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardPhoto = cardElement.querySelector(".elements__photo");
   const cardTitle = cardElement.querySelector(".elements__title");
   const likeCardBtn = cardElement.querySelector(".elements__like");
   const trashCardBtn = cardElement.querySelector(".elements__trash");
+
   cardTitle.textContent = card.name;
   cardPhoto.src = card.link;
   cardPhoto.alt = card.name;
 
-  // лайк для карточек
-  likeCardBtn.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("elements__like_active");
-  });
+  likeCardBtn.addEventListener("click", likeCard);
 
-  // удаление карточек
-  trashCardBtn.addEventListener("click", () => {
-    trashCardBtn.closest(".elements__item").remove();
-  });
+  trashCardBtn.addEventListener("click", () => deleteCard(trashCardBtn));
 
-  // открытие fullscreen
-  function openFullscreenPhotoPopup(evt) {
-    fullscreenPhoto.src = evt.target.src;
-    fullscreenPhoto.alt = card.name;
-    fullscreenPhotoCaption.textContent = card.name;
-    fullscreenPhotoPopup.classList.add("popup_opened");
-  }
-  cardPhoto.addEventListener("click", openFullscreenPhotoPopup);
+  cardPhoto.addEventListener("click", () => openFullscreenPhoto(card));
 
-  if (place === "end") {
-    cardsContainer.append(cardElement);
-  } else {
-    cardsContainer.prepend(cardElement);
-  }
+  return cardElement;
 }
 
-function openAddCardPopup() {
-  addCardPopup.classList.add("popup_opened");
+function renderCard(card) {
+  const cardElement = createCard(card);
+  cardsContainer.prepend(cardElement);
 }
 
-function addCardFormSubmitHandler(evt, popup) {
-  evt.preventDefault();
-  addCard(
-    {
-      name: cardNameInput.value,
-      link: cardLinkInput.value,
-    },
-    "start"
-  );
-  closePopup(popup);
-}
+initialCards.forEach((card) => renderCard(card));
 
-// первоначальный рендеринг карточек
-initialCards.forEach((card) => addCard(card, "end"));
-
-// добавление новых карточек
-addCardBtn.addEventListener("click", openAddCardPopup);
-addCardCloseBtn.addEventListener("click", () => closePopup(addCardPopup));
-addCardForm.addEventListener("submit", (evt) =>
-  addCardFormSubmitHandler(evt, addCardPopup)
+btnOpenProfileEdit.addEventListener("click", openProfileEdit);
+btnCloseProfileEdit.addEventListener("click", () =>
+  closePopup(popupProfileEdit)
 );
+formProfileEdit.addEventListener("submit", submitFormProfileEdit);
 
-// закрытие fullscreen
-fullscreenPhotoCloseBtn.addEventListener("click", () =>
-  closePopup(fullscreenPhotoPopup)
+btnOpenCardAdd.addEventListener("click", () => openPopup(popupCardAdd));
+btnCloseCardAdd.addEventListener("click", () => closePopup(popupCardAdd));
+formCardAdd.addEventListener("submit", submitFormCardAdd);
+
+btnCloseFullscreenPhoto.addEventListener("click", () =>
+  closePopup(popupFullscreenPhoto)
 );
