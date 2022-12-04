@@ -52,9 +52,13 @@
     <div class="popup__container popup__container_for_form">
       <button class="popup__close-btn" type="button" aria-label="закрытие редактирования профиля"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form class="popup__form" method="post" name="editProfile">
-        <input class="popup__input popup__input_data_user-name" type="text" name="userName" autofocus required>
-        <input class="popup__input popup__input_data_user-about" type="text" name="userAbout" required>
+      <form class="popup__form" method="post" name="editProfile" novalidate>
+        <input class="popup__input popup__input_data_user-name" id="user-name-input" type="text" name="userName"
+          autofocus required minlength="2" maxlength="40" placeholder="Имя">
+        <span class="popup__input-error user-name-input-error"></span>
+        <input class="popup__input popup__input_data_user-about" id="user-about-input" type="text" name="userAbout"
+          required minlength="2" maxlength="200" placeholder="О себе">
+        <span class="popup__input-error user-about-input-error"></span>
         <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
     </div>
@@ -64,11 +68,13 @@
     <div class="popup__container popup__container_for_form">
       <button class="popup__close-btn" type="button" aria-label="закрытие добавления нового места"></button>
       <h3 class="popup__title">Новое место</h3>
-      <form class="popup__form" method="post" name="addCard">
-        <input class="popup__input popup__input_data_card-name" placeholder="Название" type="text" name="cardName"
-          autofocus required>
-        <input class="popup__input popup__input_data_card-link" placeholder="Ссылка на картинку" type="text"
-          name="cardLink" required>
+      <form class="popup__form" method="post" name="addCard" novalidate>
+        <input class="popup__input popup__input_data_card-name" id="card-name-input" placeholder="Название" type="text"
+          name="cardName" autofocus required minlength="2" maxlength="30">
+        <span class="popup__input-error card-name-input-error"></span>
+        <input class="popup__input popup__input_data_card-link" id="card-link-input" placeholder="Ссылка на картинку"
+          type="url" name="cardLink" required>
+        <span class="popup__input-error card-link-input-error"></span>
         <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
     </div>
@@ -83,7 +89,7 @@
   </div>
 
   <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/data.js"></script>
+  <script type="module" src="./scripts/validate.js"></script>
 </body>
 
 </html>

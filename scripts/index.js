@@ -1,4 +1,5 @@
-import { initialCards } from "./data.js";
+import { initialCards, formSettings } from "./data.js";
+import { hideInputError, disableBtnSubmit } from "./validate.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
@@ -15,10 +16,7 @@ const popupFullscreenPhoto = document.querySelector(
 const btnOpenProfileEdit = document.querySelector(".profile__edit-btn");
 const btnOpenCardAdd = document.querySelector(".profile__add-btn");
 
-const btnCloseProfileEdit = popupProfileEdit.querySelector(".popup__close-btn");
-const btnCloseCardAdd = popupCardAdd.querySelector(".popup__close-btn");
-const btnCloseFullscreenPhoto =
-  popupFullscreenPhoto.querySelector(".popup__close-btn");
+const btnClosePopupArr = document.querySelectorAll(".popup__close-btn");
 
 const formProfileEdit = popupProfileEdit.querySelector(".popup__form");
 const inputUserName = formProfileEdit.querySelector(
@@ -74,6 +72,23 @@ function submitFormCardAdd(evt) {
   closePopup(popupCardAdd);
 }
 
+function resetForm(popup) {
+  const form = popup.querySelector(formSettings.formSelector);
+
+  if (form) {
+    const inputList = Array.from(
+      form.querySelectorAll(formSettings.inputSelector)
+    );
+    const btnSubmit = form.querySelector(formSettings.btnSubmitSelector);
+
+    inputList.forEach((input) => {
+      hideInputError(form, input, formSettings);
+    });
+    disableBtnSubmit(btnSubmit, formSettings);
+    form.reset();
+  }
+}
+
 function likeCard(evt) {
   evt.target.classList.toggle("elements__like_active");
 }
@@ -110,15 +125,40 @@ function renderCard(card) {
 initialCards.forEach((card) => renderCard(card));
 
 btnOpenProfileEdit.addEventListener("click", openProfileEdit);
-btnCloseProfileEdit.addEventListener("click", () =>
-  closePopup(popupProfileEdit)
-);
+// btnCloseProfileEdit.addEventListener("click", () =>
+//   closePopup(popupProfileEdit)
+// );
+
 formProfileEdit.addEventListener("submit", submitFormProfileEdit);
 
 btnOpenCardAdd.addEventListener("click", () => openPopup(popupCardAdd));
-btnCloseCardAdd.addEventListener("click", () => closePopup(popupCardAdd));
+// btnCloseCardAdd.addEventListener("click", () => closePopup(popupCardAdd));
 formCardAdd.addEventListener("submit", submitFormCardAdd);
 
-btnCloseFullscreenPhoto.addEventListener("click", () =>
-  closePopup(popupFullscreenPhoto)
-);
+// btnCloseFullscreenPhoto.addEventListener("click", () =>
+//   closePopup(popupFullscreenPhoto)
+// );
+
+btnClosePopupArr.forEach((btn) => {
+  let popup = btn.closest(".popup");
+
+  btn.addEventListener("click", () => {
+    closePopup(popup);
+    resetForm(popup);
+  });
+});
+
+[popupProfileEdit, popupCardAdd, popupFullscreenPhoto].forEach((popup) => {
+  popup.addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) {
+      closePopup(popup);
+      resetForm(popup);
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && popup.classList.contains("popup_opened")) {
+      closePopup(popup);
+      resetForm(popup);
+    }
+  });
+});
