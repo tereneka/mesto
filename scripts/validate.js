@@ -1,46 +1,3 @@
-// function showInputError(form, input, errorMessage) {
-//   const inputError = form.querySelector(`.${input.id}-error`);
-//   input.classList.add("popup__input_type_error");
-//   inputError.textContent = errorMessage;
-// }
-
-// function hideInputError(form, input) {
-//   const inputError = form.querySelector(`.${input.id}-error`);
-//   input.classList.remove("popup__input_type_error");
-//   inputError.textContent = "";
-// }
-
-// function checkInputValidity(form, input) {
-//   !input.validity.valid
-//     ? showInputError(form, input, input.validationMessage)
-//     : hideInputError(form, input);
-// }
-
-// function isFormInvalid(inputList) {
-//   return inputList.some((input) => !input.validity.valid);
-// }
-
-// function toggleSubmitBtnDisabling(inputList, btnSubmit) {
-//   if (isFormInvalid(inputList)) {
-//     btnSubmit.classList.add("popup__submit-btn_disabled");
-//     btnSubmit.setAttribute("disabled", "disabled");
-//   } else {
-//     btnSubmit.classList.remove("popup__submit-btn_disabled");
-//     btnSubmit.removeAttribute("disabled");
-//   }
-// }
-
-// function checkFormValidity(form) {
-//   const inputList = Array.from(form.querySelectorAll(".popup__input"));
-//   const btnSubmit = form.querySelector(".popup__submit-btn");
-
-//   inputList.forEach((input) => {
-//     input.addEventListener("input", () => {
-//       checkInputValidity(form, input);
-//       toggleSubmitBtnDisabling(inputList, btnSubmit);
-//     });
-//   });
-// }
 import { formSettings } from "./data.js";
 
 const formList = document.querySelectorAll(formSettings.formSelector);
@@ -102,8 +59,6 @@ function checkFormValidity(form, formSettings) {
 }
 
 function enableValidation(formSettings) {
-  // const formList = document.querySelectorAll(formSettings.formSelector);
-
   formList.forEach((form) => {
     checkFormValidity(form, formSettings);
   });

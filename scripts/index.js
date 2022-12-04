@@ -46,12 +46,6 @@ function openProfileEdit() {
   openPopup(popupProfileEdit);
 }
 
-// function openFullscreenPhoto(card) {
-//   fullscreenPhoto.src = card.link;
-//   fullscreenPhoto.alt = card.name;
-//   fullscreenPhotoCaption.textContent = card.name;
-//   openPopup(popupFullscreenPhoto);
-// }
 function openFullscreenPhoto(e) {
   fullscreenPhoto.src = e.target.src;
   fullscreenPhoto.alt = e.target.alt;
@@ -124,12 +118,6 @@ function createCard(card) {
   cardPhoto.src = card.link;
   cardPhoto.alt = card.name;
 
-  // likeCardBtn.addEventListener("click", likeCard);
-
-  // trashCardBtn.addEventListener("click", () => removeCard(trashCardBtn));
-
-  // cardPhoto.addEventListener("click", () => openFullscreenPhoto(card));
-
   return cardElement;
 }
 
@@ -151,19 +139,12 @@ cardsContainer.addEventListener("click", (e) => {
 });
 
 btnOpenProfileEdit.addEventListener("click", openProfileEdit);
-// btnCloseProfileEdit.addEventListener("click", () =>
-//   closePopup(popupProfileEdit)
-// );
 
 formProfileEdit.addEventListener("submit", submitFormProfileEdit);
 
 btnOpenCardAdd.addEventListener("click", () => openPopup(popupCardAdd));
-// btnCloseCardAdd.addEventListener("click", () => closePopup(popupCardAdd));
-formCardAdd.addEventListener("submit", submitFormCardAdd);
 
-// btnCloseFullscreenPhoto.addEventListener("click", () =>
-//   closePopup(popupFullscreenPhoto)
-// );
+formCardAdd.addEventListener("submit", submitFormCardAdd);
 
 btnClosePopupArr.forEach((btn) => {
   let popup = btn.closest(".popup");
@@ -181,10 +162,4 @@ btnClosePopupArr.forEach((btn) => {
       resetForm(popup);
     }
   });
-  // document.addEventListener("keydown", (e) => {
-  //   if (e.key === "Escape" && popup.classList.contains("popup_opened")) {
-  //     closePopup(popup);
-  //     resetForm(popup);
-  //   }
-  // });
 });
