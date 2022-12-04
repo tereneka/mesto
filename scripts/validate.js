@@ -43,6 +43,8 @@
 // }
 import { formSettings } from "./data.js";
 
+const formList = document.querySelectorAll(formSettings.formSelector);
+
 function showInputError(form, input, errorMessage, formSettings) {
   const inputError = form.querySelector(`.${input.id}-error`);
   input.classList.add(formSettings.inputErrorClass);
@@ -100,7 +102,7 @@ function checkFormValidity(form, formSettings) {
 }
 
 function enableValidation(formSettings) {
-  const formList = document.querySelectorAll(formSettings.formSelector);
+  // const formList = document.querySelectorAll(formSettings.formSelector);
 
   formList.forEach((form) => {
     checkFormValidity(form, formSettings);

@@ -37,6 +37,7 @@ const fullscreenPhotoCaption = popupFullscreenPhoto.querySelector(
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupbyEsc);
 }
 
 function openProfileEdit() {
@@ -45,15 +46,30 @@ function openProfileEdit() {
   openPopup(popupProfileEdit);
 }
 
-function openFullscreenPhoto(card) {
-  fullscreenPhoto.src = card.link;
-  fullscreenPhoto.alt = card.name;
-  fullscreenPhotoCaption.textContent = card.name;
+// function openFullscreenPhoto(card) {
+//   fullscreenPhoto.src = card.link;
+//   fullscreenPhoto.alt = card.name;
+//   fullscreenPhotoCaption.textContent = card.name;
+//   openPopup(popupFullscreenPhoto);
+// }
+function openFullscreenPhoto(e) {
+  fullscreenPhoto.src = e.target.src;
+  fullscreenPhoto.alt = e.target.alt;
+  fullscreenPhotoCaption.textContent = e.target.alt;
   openPopup(popupFullscreenPhoto);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupbyEsc);
+}
+
+function closePopupbyEsc(e) {
+  const popup = document.querySelector(".popup_opened");
+  if (e.key === "Escape") {
+    closePopup(popup);
+    resetForm(popup);
+  }
 }
 
 function submitFormProfileEdit(evt) {
@@ -93,7 +109,7 @@ function likeCard(evt) {
   evt.target.classList.toggle("elements__like_active");
 }
 
-function deleteCard(btn) {
+function removeCard(btn) {
   btn.closest(".elements__item").remove();
 }
 
@@ -108,11 +124,11 @@ function createCard(card) {
   cardPhoto.src = card.link;
   cardPhoto.alt = card.name;
 
-  likeCardBtn.addEventListener("click", likeCard);
+  // likeCardBtn.addEventListener("click", likeCard);
 
-  trashCardBtn.addEventListener("click", () => deleteCard(trashCardBtn));
+  // trashCardBtn.addEventListener("click", () => removeCard(trashCardBtn));
 
-  cardPhoto.addEventListener("click", () => openFullscreenPhoto(card));
+  // cardPhoto.addEventListener("click", () => openFullscreenPhoto(card));
 
   return cardElement;
 }
@@ -123,6 +139,16 @@ function renderCard(card) {
 }
 
 initialCards.forEach((card) => renderCard(card));
+
+cardsContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("elements__like")) {
+    likeCard(e);
+  } else if (e.target.classList.contains("elements__trash")) {
+    removeCard(e.target);
+  } else if (e.target.classList.contains("elements__photo")) {
+    openFullscreenPhoto(e);
+  }
+});
 
 btnOpenProfileEdit.addEventListener("click", openProfileEdit);
 // btnCloseProfileEdit.addEventListener("click", () =>
@@ -155,10 +181,10 @@ btnClosePopupArr.forEach((btn) => {
       resetForm(popup);
     }
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && popup.classList.contains("popup_opened")) {
-      closePopup(popup);
-      resetForm(popup);
-    }
-  });
+  // document.addEventListener("keydown", (e) => {
+  //   if (e.key === "Escape" && popup.classList.contains("popup_opened")) {
+  //     closePopup(popup);
+  //     resetForm(popup);
+  //   }
+  // });
 });
