@@ -54,7 +54,8 @@ function checkFormValidity(form, formConfig) {
   });
 }
 
-export function enableValidation(formConfig, formList) {
+export function enableValidation(formConfig) {
+  const formList = document.querySelectorAll(formConfig.formSelector);
   formList.forEach((form) => {
     checkFormValidity(form, formConfig);
   });

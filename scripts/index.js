@@ -20,8 +20,6 @@ const popupFullscreenPhoto = document.querySelector(
 const btnOpenProfileEdit = document.querySelector(".profile__edit-btn");
 const btnOpenCardAdd = document.querySelector(".profile__add-btn");
 
-const formList = document.querySelectorAll(formConfig.formSelector);
-
 const formProfileEdit = popupProfileEdit.querySelector(".popup__form");
 const inputUserName = formProfileEdit.querySelector(
   ".popup__input_data_user-name"
@@ -158,4 +156,4 @@ formCardAdd.addEventListener("submit", submitFormCardAdd);
   });
 });
 
-enableValidation(formConfig, formList);
+enableValidation(formConfig);
