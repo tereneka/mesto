@@ -25,7 +25,7 @@ export const initialCards = [
   },
 ];
 
-export const formSettings = {
+export const formConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   btnSubmitSelector: ".popup__submit-btn",
