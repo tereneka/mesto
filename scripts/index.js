@@ -1,10 +1,6 @@
 import { initialCards, formConfig } from "./data.js";
-import {
-  hideInputError,
-  disableBtnSubmit,
-  enableValidation,
-} from "./validate.js";
 import Card, { cardsContainer } from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
@@ -70,6 +66,17 @@ function submitFormCardAdd(evt) {
   closePopup(popupCardAdd);
 }
 
+function hideInputError(form, input, formConfig) {
+  const inputError = form.querySelector(`.${input.id}-error`);
+  input.classList.remove(formConfig.inputErrorClass);
+  inputError.textContent = "";
+}
+
+function disableBtnSubmit(btnSubmit, formConfig) {
+  btnSubmit.classList.add(formConfig.btnSubmitDisabledClass);
+  btnSubmit.setAttribute("disabled", "disabled");
+}
+
 function resetForm(form) {
   const inputList = form.querySelectorAll(formConfig.inputSelector);
   const btnSubmit = form.querySelector(formConfig.btnSubmitSelector);
@@ -112,4 +119,6 @@ formCardAdd.addEventListener("submit", submitFormCardAdd);
   });
 });
 
-enableValidation(formConfig);
+[formProfileEdit, formCardAdd].forEach((form) => {
+  new FormValidator(formConfig, form).enableValidation();
+});
