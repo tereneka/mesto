@@ -1,3 +1,6 @@
+// Методы hideInputError и disableBtnSubmit нужны только для реализации метода resetForm, поэтому оставила их приватными.
+// Поскольку сбрасывать форму нужно при открытии попапа пришлось создавать новые экземпляры FormValidator для этого. Так правильно?
+
 export default class FormValidator {
   constructor(formConfig, form) {
     this._formSelector = formConfig.formSelector;
@@ -6,6 +9,10 @@ export default class FormValidator {
     this._btnSubmitDisabledClass = formConfig.btnSubmitDisabledClass;
     this._inputErrorClass = formConfig.inputErrorClass;
     this._form = form;
+    this._inputList = Array.from(
+      this._form.querySelectorAll(this._inputSelector)
+    );
+    this._btnSubmit = this._form.querySelector(this._btnSubmitSelector);
   }
 
   _showInputError(input, errorMessage) {
@@ -26,42 +33,45 @@ export default class FormValidator {
       : this._hideInputError(input);
   }
 
-  _isFormInvalid(inputList) {
-    return inputList.some((input) => !input.validity.valid);
+  _isFormInvalid() {
+    return this._inputList.some((input) => !input.validity.valid);
   }
 
-  _disableBtnSubmit(btnSubmit) {
-    btnSubmit.classList.add(this._btnSubmitDisabledClass);
-    btnSubmit.setAttribute("disabled", "disabled");
+  _disableBtnSubmit() {
+    this._btnSubmit.classList.add(this._btnSubmitDisabledClass);
+    this._btnSubmit.setAttribute("disabled", "disabled");
   }
 
-  _enableBtnSubmit(btnSubmit) {
-    btnSubmit.classList.remove(this._btnSubmitDisabledClass);
-    btnSubmit.removeAttribute("disabled");
+  _enableBtnSubmit() {
+    this._btnSubmit.classList.remove(this._btnSubmitDisabledClass);
+    this._btnSubmit.removeAttribute("disabled");
   }
 
-  _toggleSubmitBtnDisabling(inputList, btnSubmit) {
-    if (this._isFormInvalid(inputList)) {
-      this._disableBtnSubmit(btnSubmit);
+  _toggleSubmitBtnDisabling() {
+    if (this._isFormInvalid()) {
+      this._disableBtnSubmit();
     } else {
-      this._enableBtnSubmit(btnSubmit);
+      this._enableBtnSubmit();
     }
   }
 
   _checkFormValidity() {
-    const inputList = Array.from(
-      this._form.querySelectorAll(this._inputSelector)
-    );
-    const btnSubmit = this._form.querySelector(this._btnSubmitSelector);
+    this._toggleSubmitBtnDisabling();
 
-    this._toggleSubmitBtnDisabling(inputList, btnSubmit);
-
-    inputList.forEach((input) => {
+    this._inputList.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkInputValidity(input);
-        this._toggleSubmitBtnDisabling(inputList, btnSubmit);
+        this._toggleSubmitBtnDisabling();
       });
     });
+  }
+
+  resetForm() {
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);
+    });
+    this._disableBtnSubmit();
+    this._form.reset();
   }
 
   enableValidation() {

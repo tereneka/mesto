@@ -1,4 +1,5 @@
-export const cardsContainer = document.querySelector(".elements");
+import { openPopup } from "./utils/utils.js";
+
 const popupFullscreenPhoto = document.querySelector(
   ".popup_name_fullscreen-photo"
 );
@@ -27,53 +28,38 @@ export default class Card {
     this._cardElement = this._getTemplate();
     this._cardElement.querySelector(".elements__title").textContent =
       this._title;
-    const cardPhoto = this._cardElement.querySelector(".elements__photo");
-    cardPhoto.src = this._link;
-    cardPhoto.alt = this._title;
+    this._cardPhoto = this._cardElement.querySelector(".elements__photo");
+    this._cardPhoto.src = this._link;
+    this._cardPhoto.alt = this._title;
+
+    this._setEventListeners();
 
     return this._cardElement;
   }
 
-  static _closePopup() {
-    popupFullscreenPhoto.classList.remove("popup_opened");
-    document.removeEventListener("keydown", this._closePopupByEsc);
-  }
-
-  static _closePopupByEsc(e) {
-    if (e.key === "Escape") {
-      this._closePopup();
-    }
-  }
-
-  static _openPopup() {
-    popupFullscreenPhoto.classList.add("popup_opened");
-    document.addEventListener("keydown", this._closePopupByEsc);
-  }
-
-  static _openFullscreenPhoto(e) {
+  _openFullscreenPhoto(e) {
     fullscreenPhoto.src = e.target.src;
     fullscreenPhoto.alt = e.target.alt;
     fullscreenPhotoCaption.textContent = e.target.alt;
-    this._openPopup();
+    openPopup(popupFullscreenPhoto);
   }
 
-  static _likeCard(e) {
+  _likeCard(e) {
     e.target.classList.toggle("elements__like_active");
   }
 
-  static _removeCard(e) {
+  _removeCard(e) {
     e.target.closest(".elements__item").remove();
   }
 
-  static setEventListeners() {
-    cardsContainer.addEventListener("click", (e) => {
-      if (e.target.classList.contains("elements__like")) {
-        this._likeCard(e);
-      } else if (e.target.classList.contains("elements__trash")) {
-        this._removeCard(e);
-      } else if (e.target.classList.contains("elements__photo")) {
-        this._openFullscreenPhoto(e);
-      }
-    });
+  // Не поняла почему установка слушателей на контейнер карточек является не корректным, в теории про делегирование было сказано, что это более эффективный способ и в 6-й ПР у меня приняли вариант с делигированием.
+  _setEventListeners() {
+    this._cardPhoto.addEventListener("click", this._openFullscreenPhoto);
+    this._cardElement
+      .querySelector(".elements__like")
+      .addEventListener("click", this._likeCard);
+    this._cardElement
+      .querySelector(".elements__trash")
+      .addEventListener("click", this._removeCard);
   }
 }

@@ -1,9 +1,12 @@
 import { initialCards, formConfig } from "./data.js";
-import Card, { cardsContainer } from "./Card.js";
+import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import { openPopup, closePopup } from "./utils/utils.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
+
+const cardsContainer = document.querySelector(".elements");
 
 const popupProfileEdit = document.querySelector(".popup_name_edit-profile");
 const popupCardAdd = document.querySelector(".popup_name_add-card");
@@ -26,28 +29,11 @@ const formCardAdd = popupCardAdd.querySelector(".popup__form");
 const inputCardName = formCardAdd.querySelector(".popup__input_data_card-name");
 const inputCardLink = formCardAdd.querySelector(".popup__input_data_card-link");
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupByEsc);
-}
-
 function openProfileEdit() {
-  resetForm(formProfileEdit);
+  new FormValidator(formConfig, formProfileEdit).resetForm();
   inputUserName.value = profileName.textContent;
   inputUserAbout.value = profileAbout.textContent;
   openPopup(popupProfileEdit);
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupByEsc);
-}
-
-function closePopupByEsc(e) {
-  if (e.key === "Escape") {
-    const popup = document.querySelector(".popup_opened");
-    closePopup(popup);
-  }
 }
 
 function submitFormProfileEdit(evt) {
@@ -66,28 +52,6 @@ function submitFormCardAdd(evt) {
   closePopup(popupCardAdd);
 }
 
-function hideInputError(form, input, formConfig) {
-  const inputError = form.querySelector(`.${input.id}-error`);
-  input.classList.remove(formConfig.inputErrorClass);
-  inputError.textContent = "";
-}
-
-function disableBtnSubmit(btnSubmit, formConfig) {
-  btnSubmit.classList.add(formConfig.btnSubmitDisabledClass);
-  btnSubmit.setAttribute("disabled", "disabled");
-}
-
-function resetForm(form) {
-  const inputList = form.querySelectorAll(formConfig.inputSelector);
-  const btnSubmit = form.querySelector(formConfig.btnSubmitSelector);
-
-  inputList.forEach((input) => {
-    hideInputError(form, input, formConfig);
-  });
-  disableBtnSubmit(btnSubmit, formConfig);
-  form.reset();
-}
-
 function renderCard(data) {
   const cardElement = new Card(data, "#card-template").createCard();
   cardsContainer.prepend(cardElement);
@@ -95,14 +59,12 @@ function renderCard(data) {
 
 initialCards.forEach(renderCard);
 
-Card.setEventListeners();
-
 btnOpenProfileEdit.addEventListener("click", openProfileEdit);
 
 formProfileEdit.addEventListener("submit", submitFormProfileEdit);
 
 btnOpenCardAdd.addEventListener("click", () => {
-  resetForm(formCardAdd);
+  new FormValidator(formConfig, formCardAdd).resetForm();
   openPopup(popupCardAdd);
 });
 
