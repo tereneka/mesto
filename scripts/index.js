@@ -18,6 +18,7 @@ const btnOpenProfileEdit = document.querySelector(".profile__edit-btn");
 const btnOpenCardAdd = document.querySelector(".profile__add-btn");
 
 const formProfileEdit = popupProfileEdit.querySelector(".popup__form");
+const formProfileEditValidator = new FormValidator(formConfig, formProfileEdit);
 const inputUserName = formProfileEdit.querySelector(
   ".popup__input_data_user-name"
 );
@@ -26,11 +27,12 @@ const inputUserAbout = formProfileEdit.querySelector(
 );
 
 const formCardAdd = popupCardAdd.querySelector(".popup__form");
+const formCardAddValidator = new FormValidator(formConfig, formCardAdd);
 const inputCardName = formCardAdd.querySelector(".popup__input_data_card-name");
 const inputCardLink = formCardAdd.querySelector(".popup__input_data_card-link");
 
 function openProfileEdit() {
-  new FormValidator(formConfig, formProfileEdit).resetForm();
+  formProfileEditValidator.resetForm();
   inputUserName.value = profileName.textContent;
   inputUserAbout.value = profileAbout.textContent;
   openPopup(popupProfileEdit);
@@ -64,7 +66,7 @@ btnOpenProfileEdit.addEventListener("click", openProfileEdit);
 formProfileEdit.addEventListener("submit", submitFormProfileEdit);
 
 btnOpenCardAdd.addEventListener("click", () => {
-  new FormValidator(formConfig, formCardAdd).resetForm();
+  formCardAddValidator.resetForm();
   openPopup(popupCardAdd);
 });
 
@@ -81,6 +83,6 @@ formCardAdd.addEventListener("submit", submitFormCardAdd);
   });
 });
 
-[formProfileEdit, formCardAdd].forEach((form) => {
-  new FormValidator(formConfig, form).enableValidation();
+[formProfileEditValidator, formCardAddValidator].forEach((validator) => {
+  validator.enableValidation();
 });

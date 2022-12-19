@@ -1,5 +1,4 @@
 // Методы hideInputError и disableBtnSubmit нужны только для реализации метода resetForm, поэтому оставила их приватными.
-// Поскольку сбрасывать форму нужно при открытии попапа пришлось создавать новые экземпляры FormValidator для этого. Так правильно?
 
 export default class FormValidator {
   constructor(formConfig, form) {
