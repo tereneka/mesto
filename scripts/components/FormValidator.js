@@ -1,5 +1,3 @@
-// Методы hideInputError и disableBtnSubmit нужны только для реализации метода resetForm, поэтому оставила их приватными.
-
 export default class FormValidator {
   constructor(formConfig, form) {
     this._formSelector = formConfig.formSelector;
@@ -70,7 +68,6 @@ export default class FormValidator {
       this._hideInputError(input);
     });
     this._disableBtnSubmit();
-    this._form.reset();
   }
 
   enableValidation() {

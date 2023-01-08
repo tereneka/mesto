@@ -1,4 +1,4 @@
-import { openPopup } from "./utils/utils.js";
+import { openPopup } from "../utils/utils.js";
 
 const popupFullscreenPhoto = document.querySelector(
   ".popup_name_fullscreen-photo"
@@ -9,10 +9,11 @@ const fullscreenPhotoCaption = popupFullscreenPhoto.querySelector(
 );
 
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._title = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -37,12 +38,12 @@ export default class Card {
     return this._cardElement;
   }
 
-  _openFullscreenPhoto(e) {
-    fullscreenPhoto.src = e.target.src;
-    fullscreenPhoto.alt = e.target.alt;
-    fullscreenPhotoCaption.textContent = e.target.alt;
-    openPopup(popupFullscreenPhoto);
-  }
+  // _openFullscreenPhoto(e) {
+  //   fullscreenPhoto.src = e.target.src;
+  //   fullscreenPhoto.alt = e.target.alt;
+  //   fullscreenPhotoCaption.textContent = e.target.alt;
+  //   openPopup(popupFullscreenPhoto);
+  // }
 
   _likeCard(e) {
     e.target.classList.toggle("elements__like_active");
@@ -52,9 +53,8 @@ export default class Card {
     e.target.closest(".elements__item").remove();
   }
 
-  // Не поняла почему установка слушателей на контейнер карточек является не корректным, в теории про делегирование было сказано, что это более эффективный способ и в 6-й ПР у меня приняли вариант с делигированием.
   _setEventListeners() {
-    this._cardPhoto.addEventListener("click", this._openFullscreenPhoto);
+    this._cardPhoto.addEventListener("click", this._handleCardClick.bind(this));
     this._cardElement
       .querySelector(".elements__like")
       .addEventListener("click", this._likeCard);
