@@ -28,11 +28,11 @@ export default class Card {
     return this._cardElement;
   }
 
-  _likeCard(e) {
+  _handleLikeClick(e) {
     e.target.classList.toggle("elements__like_active");
   }
 
-  _removeCard(e) {
+  _handleTrashClick(e) {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -41,9 +41,9 @@ export default class Card {
     this._cardPhoto.addEventListener("click", this._handleCardClick.bind(this));
     this._cardElement
       .querySelector(".elements__like")
-      .addEventListener("click", this._likeCard);
+      .addEventListener("click", this._handleLikeClick);
     this._cardElement
       .querySelector(".elements__trash")
-      .addEventListener("click", this._removeCard.bind(this));
+      .addEventListener("click", this._handleTrashClick.bind(this));
   }
 }

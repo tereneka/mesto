@@ -26,7 +26,6 @@ export const initialCards = [
 ];
 
 export const formConfig = {
-  formSelector: ".popup__form",
   inputSelector: ".popup__input",
   btnSubmitSelector: ".popup__submit-btn",
   btnSubmitDisabledClass: "popup__submit-btn_disabled",
