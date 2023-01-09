@@ -1,0 +1,24 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Проект социальной сети для постов о путешествиях по России.\r Проект представляет из себя страницу пользователя с информацией о пользователе, списком выложенных постов(фото с описанием), возможностью изменять профиль пользователя, добавлять посты, удалять и лайкать посты, просматривать фото в режиме full screen.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tereneka/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tereneka/mesto/issues"
+  },
+  "homepage": "https://github.com/tereneka/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

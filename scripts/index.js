@@ -48,27 +48,20 @@ function renderCard(item) {
 function openProfileEdit() {
   formProfileEditValidator.resetForm();
   const userInfo = profile.getUserInfo();
-  popupProfileEdit.form.userName.value = userInfo.name;
-  popupProfileEdit.form.userAbout.value = userInfo.about;
+  popupProfileEdit.setInputValue("userName", userInfo.name);
+  popupProfileEdit.setInputValue("userAbout", userInfo.about);
   popupProfileEdit.open();
 }
 
-function submitFormProfileEdit(e) {
-  e.preventDefault();
-  profile.setUserInfo(
-    popupProfileEdit.form.userName.value,
-    popupProfileEdit.form.userAbout.value
-  );
-  popupProfileEdit.close();
+function submitFormProfileEdit(inputValues) {
+  profile.setUserInfo(inputValues.userName, inputValues.userAbout);
 }
 
-function submitFormCardAdd(e) {
-  e.preventDefault();
+function submitFormCardAdd(inputValues) {
   renderCard({
-    name: popupCardAdd.form.cardName.value,
-    link: popupCardAdd.form.cardLink.value,
+    name: inputValues.cardName,
+    link: inputValues.cardLink,
   });
-  popupCardAdd.close();
 }
 
 cardList.renderItems();

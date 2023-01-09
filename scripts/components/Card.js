@@ -1,13 +1,3 @@
-import { openPopup } from "../utils/utils.js";
-
-const popupFullscreenPhoto = document.querySelector(
-  ".popup_name_fullscreen-photo"
-);
-const fullscreenPhoto = popupFullscreenPhoto.querySelector(".popup__photo");
-const fullscreenPhotoCaption = popupFullscreenPhoto.querySelector(
-  ".popup__photo-caption"
-);
-
 export default class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._title = data.name;
@@ -38,19 +28,13 @@ export default class Card {
     return this._cardElement;
   }
 
-  // _openFullscreenPhoto(e) {
-  //   fullscreenPhoto.src = e.target.src;
-  //   fullscreenPhoto.alt = e.target.alt;
-  //   fullscreenPhotoCaption.textContent = e.target.alt;
-  //   openPopup(popupFullscreenPhoto);
-  // }
-
   _likeCard(e) {
     e.target.classList.toggle("elements__like_active");
   }
 
   _removeCard(e) {
-    e.target.closest(".elements__item").remove();
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _setEventListeners() {
@@ -60,6 +44,6 @@ export default class Card {
       .addEventListener("click", this._likeCard);
     this._cardElement
       .querySelector(".elements__trash")
-      .addEventListener("click", this._removeCard);
+      .addEventListener("click", this._removeCard.bind(this));
   }
 }
