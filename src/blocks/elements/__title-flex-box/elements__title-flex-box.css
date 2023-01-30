@@ -1,8 +1,0 @@
-.elements__title-flex-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 25px 20px;
-  min-height: 19px;
-}

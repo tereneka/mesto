@@ -1,8 +1,0 @@
-.elements__item {
-  width: 100%;
-  background-color: var(--light-color);
-  border-radius: 10px;
-  margin: auto;
-  box-sizing: border-box;
-  position: relative;
-}
