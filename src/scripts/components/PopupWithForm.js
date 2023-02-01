@@ -6,6 +6,9 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector(".popup__form");
     this._inputList = this._form.querySelectorAll(".popup__input");
+    this._btnSubmit = this._form.querySelector(".popup__submit-btn");
+    this._contentBox = this._popup.querySelector(".popup__content-box");
+    this._errMessage = this._popup.querySelector(".error");
   }
 
   _getInputValues() {
@@ -22,6 +25,10 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  setSubmitBtnText(text) {
+    this._btnSubmit.textContent = text;
+  }
+
   setEventListeners() {
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -32,6 +39,19 @@ export default class PopupWithForm extends Popup {
 
   close() {
     this._form.reset();
+    this._hideErrMessage();
     super.close();
+  }
+
+  showErrMessage(err) {
+    this._contentBox.classList.add("popup__content-box_invisible");
+    this._errMessage.textContent = err;
+    this._errMessage.classList.add("error_visible");
+  }
+
+  _hideErrMessage() {
+    this._contentBox.classList.remove("popup__content-box_invisible");
+    this._errMessage.textContent = "";
+    this._errMessage.classList.remove("error_visible");
   }
 }

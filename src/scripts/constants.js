@@ -1,5 +1,14 @@
-// не нашла в задании, что утилитарные константы должны быть выделены в constants.js
+const content = document.querySelector(".content");
+const spinner = document.querySelector(".spinner");
+
+const btnOpenAvatarEdit = document.querySelector(".profile__edit-avatar-btn");
 const btnOpenProfileEdit = document.querySelector(".profile__edit-btn");
 const btnOpenCardAdd = document.querySelector(".profile__add-btn");
 
-export { btnOpenProfileEdit, btnOpenCardAdd };
+export {
+  content,
+  spinner,
+  btnOpenAvatarEdit,
+  btnOpenProfileEdit,
+  btnOpenCardAdd,
+};
