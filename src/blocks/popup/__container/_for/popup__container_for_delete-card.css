@@ -1,9 +1,9 @@
-.popup__container_for_form {
+.popup__container_for_delete-card {
   background-color: var(--light-color);
   display: flex;
   flex-direction: column;
   align-self: center;
-  gap: 48px;
+  gap: 30px;
   width: 430px;
   box-sizing: border-box;
   padding: 34px 36px 37px;
@@ -11,14 +11,8 @@
   border-radius: 10px;
 }
 
-@media screen and (max-width: 600px) {
-  .popup__container_for_form {
-    gap: 74px;
-  }
-}
-
 @media screen and (max-width: 468px) {
-  .popup__container_for_form {
+  .popup__container_for_delete-card {
     width: calc(100% - 38px);
     padding: 25px 22px;
   }
