@@ -54,27 +54,6 @@ const formProfileEditValidator = new FormValidator(
 );
 const formCardAddValidator = new FormValidator(formConfig, document.addCard);
 
-// const cardsSection = new Section(
-//   {
-//     items: cards,
-//     renderer: (cardData) => renderCard(cardData),
-//   },
-//   ".elements"
-// );
-
-// function createCard(cardData) {
-//   const cardElement = new Card(
-//     cardData,
-//     "#card-template",
-//     () => popupFullscreenPhoto.open(cardData),
-//     (e) => {
-//       popupCardDelete.open();
-//       popupCardDelete.setConfirmBtnId(e.target.closest(".elements__item").id);
-//     }
-//   ).createCard();
-
-//   return cardElement;
-// }
 function createCard(cardData) {
   const cardElement = new Card(
     cardData,
@@ -148,7 +127,6 @@ function handleAvatarFormSubmit(inputValues) {
 }
 
 function handleProfileFormSubmit(inputValues) {
-  // profile.setUserInfo(inputValues.userName, inputValues.userAbout);
   popupProfileEdit.setSubmitBtnText("Сохранение...");
   api
     .setUserInfo({ name: inputValues.userName, about: inputValues.userAbout })
@@ -163,10 +141,6 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 function handleCardFormSubmit(inputValues) {
-  // renderCard({
-  //   name: inputValues.cardName,
-  //   link: inputValues.cardLink,
-  // });
   popupCardAdd.setSubmitBtnText("Сохранение...");
   api
     .postCard({ name: inputValues.cardName, link: inputValues.cardLink })
