@@ -6,12 +6,10 @@ export default class PopupWithConfirm extends Popup {
     this._confirmBtn = this._popup.querySelector(".popup__submit-btn");
     this._contentBox = this._popup.querySelector(".popup__content-box");
     this._errMessage = this._popup.querySelector(".error");
-    this._setEventListeners();
   }
 
   setHandlerConfirmBtnClick(callback) {
     this._handleConfirmBtnClick = callback;
-    // переустанавливаем слушателей событий, т.к. изменили функсию-обработчик
     this._setEventListeners();
   }
 
