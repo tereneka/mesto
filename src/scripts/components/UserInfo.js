@@ -6,19 +6,21 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return { name: this._name.textContent, about: this._about.textContent };
+    return {
+      name: this._name.textContent,
+      about: this._about.textContent,
+      avatar: this._avatar.src,
+      id: this._id,
+    };
   }
 
-  setUserInfo(name, about) {
+  setUserInfo(name, about, id) {
     this._name.textContent = name;
     this._about.textContent = about;
+    this._id = id || this._id;
   }
 
   setAvatarLink(url) {
     this._avatar.src = url;
-  }
-
-  getAvatarLink() {
-    return this._avatar.src;
   }
 }

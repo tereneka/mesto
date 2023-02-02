@@ -1,6 +1,7 @@
 export default class Card {
   constructor(
     data,
+    ownerId,
     templateSelector,
     handleCardClick,
     handleTrashClick,
@@ -8,6 +9,7 @@ export default class Card {
     deleteLike
   ) {
     this._data = data;
+    this._ownerId = ownerId;
     this._likesCount = data.likes.length;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
@@ -32,7 +34,7 @@ export default class Card {
   }
 
   createCard() {
-    if (this._data.owner._id !== "ef9b070c4752c2272d845198") {
+    if (this._data.owner._id !== this._ownerId) {
       this._trashElement.remove();
     }
     this._cardElement.querySelector(".elements__title").textContent =
@@ -41,7 +43,7 @@ export default class Card {
     this._cardPhoto.src = this._data.link;
     this._cardPhoto.alt = this._data.name;
     this._likesCountElement.textContent = this._likesCount;
-    if (this._data.likes.some((i) => i._id === "ef9b070c4752c2272d845198")) {
+    if (this._data.likes.some((i) => i._id === this._ownerId)) {
       this.activateLikeBtn();
     }
     this._setEventListeners();
@@ -75,7 +77,7 @@ export default class Card {
     this._cardElement
       .querySelector(".elements__like")
       .addEventListener("click", this._handleLikeClick.bind(this));
-    if (this._data.owner._id == "ef9b070c4752c2272d845198") {
+    if (this._data.owner._id == this._ownerId) {
       this._trashElement.addEventListener("click", this._handleTrashClick);
     }
   }

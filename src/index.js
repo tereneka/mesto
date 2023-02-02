@@ -15,7 +15,7 @@ import {
 } from "./scripts/constants.js";
 import Api from "./scripts/components/Api";
 import PopupWithConfirm from "./scripts/components/PopupWithConfirm";
-
+// setUserInfo;
 const api = new Api(dbConfig);
 
 const profilPromise = api.getUserInfo();
@@ -57,6 +57,7 @@ const formCardAddValidator = new FormValidator(formConfig, document.addCard);
 function createCard(cardData) {
   const cardElement = new Card(
     cardData,
+    profile.getUserInfo().id,
     "#card-template",
     () => popupFullscreenPhoto.open(cardData),
     () => {
@@ -65,7 +66,6 @@ function createCard(cardData) {
           cardElement.deleteCard()
         )
       );
-      popupCardDelete.setEventListeners();
       popupCardDelete.open();
     },
     () => {
@@ -97,7 +97,7 @@ function renderCard(cardData) {
 
 function openAvatarEdit() {
   formAvatarEditValidator.resetValidation();
-  const avatarLink = profile.getAvatarLink();
+  const avatarLink = profile.getUserInfo().avatar;
   popupAvatareEdit.setInputValues({ avatar: avatarLink });
   popupAvatareEdit.open();
 }
@@ -184,7 +184,7 @@ Promise.all([profilPromise, cardsPromise])
   .then((data) => {
     const [profileData, cardsData] = data;
 
-    profile.setUserInfo(profileData.name, profileData.about);
+    profile.setUserInfo(profileData.name, profileData.about, profileData._id);
     profile.setAvatarLink(profileData.avatar);
 
     cardsSection = new Section(
