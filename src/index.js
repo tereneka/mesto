@@ -15,11 +15,8 @@ import {
 } from "./scripts/constants.js";
 import Api from "./scripts/components/Api";
 import PopupWithConfirm from "./scripts/components/PopupWithConfirm";
-// setUserInfo;
-const api = new Api(dbConfig);
 
-const profilPromise = api.getUserInfo();
-const cardsPromise = api.getCards();
+const api = new Api(dbConfig);
 
 const profile = new UserInfo({
   nameSelector: ".profile__name",
@@ -27,7 +24,10 @@ const profile = new UserInfo({
   avatarSelector: ".profile__avatar",
 });
 
-let cardsSection;
+const cardsSection = new Section(
+  (cardData) => renderCard(cardData),
+  ".elements"
+);
 
 const popupFullscreenPhoto = new PopupWithImage(".popup_name_fullscreen-photo");
 const popupAvatareEdit = new PopupWithForm(
@@ -180,21 +180,14 @@ function renderLoading() {
 renderLoading(); // рендерим спинер до загрузки контента
 
 // рендерим результат загрузки контена
-Promise.all([profilPromise, cardsPromise])
+Promise.all([api.getUserInfo(), api.getCards()])
   .then((data) => {
     const [profileData, cardsData] = data;
 
     profile.setUserInfo(profileData.name, profileData.about, profileData._id);
     profile.setAvatarLink(profileData.avatar);
 
-    cardsSection = new Section(
-      {
-        items: cardsData.reverse(),
-        renderer: (cardData) => renderCard(cardData),
-      },
-      ".elements"
-    );
-    cardsSection.renderItems();
+    cardsSection.renderItems(cardsData.reverse());
     content.classList.remove("content_invisible");
   })
   .catch((err) => {
